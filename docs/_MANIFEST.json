@@ -1,0 +1,247 @@
+{
+  "aplikasi": "SIMasuk",
+  "jenis": "greenfield, aplikasi web internal",
+  "konfirmasi": "Ringkasan Kebutuhan dikonfirmasi pengguna ('oke sip')",
+  "ringkasan": {
+    "tujuan": "Administrasi surat masuk: pencatatan, nomor agenda otomatis, pencarian, buku agenda, laporan per periode",
+    "peran": [
+      "admin",
+      "operator"
+    ],
+    "alur": "tanpa disposisi",
+    "stack": "PHP 8 native terstruktur (MVC ringan + PDO), MySQL, Tailwind CSS",
+    "lingkungan": "MacBook (macOS), Apache + PHP 8 + MySQL (MAMP)",
+    "laporan": "cetak A4 dari browser + ekspor Excel/CSV"
+  },
+  "asumsi": [
+    "MAMP di macOS",
+    "Tailwind CLI standalone tanpa Node",
+    "Login username+password, password_hash, sesi PHP, CSRF",
+    "Hapus hanya Admin, soft delete",
+    "Nomor agenda reset per tahun berdasarkan tahun tanggal diterima",
+    "UI Indonesia, WITA, daftar berhalaman dengan pencarian",
+    "Satu Admin awal dari seeder, wajib ganti kata sandi",
+    "Kop laporan cetak dari konfigurasi"
+  ],
+  "asumsi_tambahan": [
+    "Tailwind v4 CLI standalone",
+    "Operator boleh mengubah semua surat",
+    "Peringatan duplikat nomor surat+asal surat (non-blokir)",
+    "Sesi idle 120 menit",
+    "CSV: pemisah ';', BOM UTF-8, tanggal ISO",
+    "Dashboard ringkas (FR-12)",
+    "Nama dokumen 01-25 disusun sendiri karena template skill tidak tersedia"
+  ],
+  "terbuka": [
+    "kode klasifikasi arsip",
+    "upload scan",
+    "disposisi",
+    "notifikasi",
+    "surat keluar",
+    "pembatasan login",
+    "pemindahan server kantor/VPS"
+  ],
+  "collapsed": [
+    "17",
+    "18",
+    "19",
+    "20"
+  ],
+  "fakta_kanonik": {
+    "ruang_lingkup": "02",
+    "peran_dan_hak_akses": "03",
+    "istilah_domain": "04",
+    "fitur_FR": "05",
+    "aturan_bisnis": "06",
+    "skema_database": "07",
+    "stack_dan_struktur_folder": "08",
+    "rute": "09",
+    "ui": "10",
+    "perintah": "11",
+    "konfigurasi_env": "12",
+    "keamanan": "13",
+    "format_laporan_csv": "14",
+    "konvensi_kode": "15",
+    "jebakan": "16",
+    "penanganan_galat": "17",
+    "log": "18",
+    "performa": "19",
+    "bahasa_aksesibilitas": "20",
+    "deploy": "21",
+    "cadangan": "22",
+    "tes_dan_kriteria_terima": "23",
+    "roadmap": "24",
+    "rilis": "25"
+  },
+  "referenced_by": {
+    "00": [
+      "CLAUDE.md",
+      "INDEX.md"
+    ],
+    "01": [
+      "00",
+      "INDEX.md"
+    ],
+    "02": [
+      "00",
+      "15",
+      "18",
+      "CLAUDE.md",
+      "INDEX.md"
+    ],
+    "03": [
+      "00",
+      "04",
+      "13",
+      "INDEX.md"
+    ],
+    "04": [
+      "00",
+      "06",
+      "15",
+      "INDEX.md"
+    ],
+    "05": [
+      "00",
+      "INDEX.md"
+    ],
+    "06": [
+      "00",
+      "04",
+      "05",
+      "07",
+      "09",
+      "13",
+      "CLAUDE.md",
+      "INDEX.md"
+    ],
+    "07": [
+      "00",
+      "06",
+      "08",
+      "16",
+      "18",
+      "19",
+      "CLAUDE.md",
+      "INDEX.md"
+    ],
+    "08": [
+      "00",
+      "15",
+      "INDEX.md"
+    ],
+    "09": [
+      "03",
+      "05",
+      "08",
+      "CLAUDE.md",
+      "INDEX.md"
+    ],
+    "10": [
+      "20",
+      "INDEX.md"
+    ],
+    "11": [
+      "10",
+      "16",
+      "21",
+      "23",
+      "25",
+      "CLAUDE.md",
+      "INDEX.md",
+      "24"
+    ],
+    "12": [
+      "07",
+      "08",
+      "10",
+      "11",
+      "14",
+      "21",
+      "CLAUDE.md",
+      "INDEX.md"
+    ],
+    "13": [
+      "08",
+      "09",
+      "14",
+      "CLAUDE.md",
+      "INDEX.md"
+    ],
+    "14": [
+      "09",
+      "10",
+      "13",
+      "23",
+      "INDEX.md"
+    ],
+    "15": [
+      "INDEX.md"
+    ],
+    "16": [
+      "11",
+      "12",
+      "CLAUDE.md",
+      "INDEX.md"
+    ],
+    "17": [
+      "03",
+      "13",
+      "INDEX.md"
+    ],
+    "18": [
+      "17",
+      "INDEX.md"
+    ],
+    "19": [
+      "INDEX.md"
+    ],
+    "20": [
+      "INDEX.md"
+    ],
+    "21": [
+      "INDEX.md"
+    ],
+    "22": [
+      "11",
+      "25",
+      "INDEX.md"
+    ],
+    "23": [
+      "01",
+      "05",
+      "24",
+      "25",
+      "CLAUDE.md",
+      "INDEX.md"
+    ],
+    "24": [
+      "00",
+      "15",
+      "23",
+      "CLAUDE.md",
+      "INDEX.md"
+    ],
+    "25": [
+      "22",
+      "24",
+      "INDEX.md"
+    ]
+  },
+  "implementasi": {
+    "slice_terkini": "S6",
+    "cakupan": "S1-S5 diimplementasikan; S6 teknis selesai dengan 21 tes termasuk backup/restore dan konkurensi Admin; gerbang rilis S6 masih menunggu verifikasi target MAMP, konfigurasi/akun operasional, Git, serta uji interaktif",
+    "dokumen_pemilik": [
+      "11",
+      "22",
+      "23",
+      "24",
+      "25"
+    ],
+    "lingkungan_verifikasi": "PHP Herd 8.4; MySQL Homebrew 9.7 terisolasi port 13379; Chrome headless; Apache MAMP/MySQL 8.0 belum diverifikasi",
+    "verifikasi_terakhir": {
+      "tanggal": "2026-10-26",
+      "dokumen_pemilik": "23"
+    }
+  }
+}

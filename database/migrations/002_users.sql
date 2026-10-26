@@ -1,0 +1,12 @@
+CREATE TABLE users (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(50) NOT NULL,
+  nama_lengkap VARCHAR(100) NOT NULL,
+  password_hash VARCHAR(255) NOT NULL,
+  peran ENUM('admin','operator') NOT NULL DEFAULT 'operator',
+  aktif TINYINT(1) NOT NULL DEFAULT 1,
+  wajib_ganti_password TINYINT(1) NOT NULL DEFAULT 1,
+  dibuat_pada DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  diubah_pada DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  UNIQUE KEY uq_users_username (username)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
